@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga Artist Style Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Manga Artist Style Analyzer</h1>
+
+        <div class="upload-section">
+            <div class="preview-container">
+                <div id="dropZone" class="upload-area">
+                    <p>Upload Image or Drop Here</p>
+                    <p class="upload-subtitle">Supported formats: JPG, PNG</p>
+                    <input type="file" id="fileInput" accept="image/*">
+                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Select File</button>
+                </div>
+                <img id="imagePreview" alt="Uploaded image preview">
+            </div>
+        </div>
+
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Analyzing image...</p>
+        </div>
+
+        <div class="results-section">
+            <div class="model-results" id="cctResults">
+                <h3>CCT Model Results</h3>
+                <button class="upload-btn" id="submitCCT">Submit to CCT</button>
+                <div id="cctContent"></div>
+            </div>
+
+            <div class="model-results" id="vitResults">
+                <h3>ViT Model Results</h3>
+                <button class="upload-btn" id="submitVIT">Submit to ViT</button>
+                <div id="vitContent"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
