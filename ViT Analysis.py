@@ -1,15 +1,9 @@
 import torch
-import torch.nn.functional as F
-from src import cct_14_7x2_224
 from torchvision import transforms
 from PIL import Image
 from transformers import ViTForImageClassification
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-from scipy.stats import ttest_rel
 import seaborn as sns
 import matplotlib.pyplot as plt
-import numpy as np
-
 
 # Load the model architecture
 # ViT Model
@@ -20,7 +14,7 @@ model = ViTForImageClassification.from_pretrained(
 )
 
 # Load the saved weights
-checkpoint = torch.load("vit_checkpoint.pth", map_location='cpu')
+checkpoint = torch.load("MangaVisualComparison/vit_checkpoint.pth", map_location='cpu')
 model.load_state_dict(checkpoint['model_state_dict'])
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -48,6 +42,7 @@ class_labels = [
     "Yuuki Tabata"
 ]
 
+
 # Function to perform inference
 def predict(image_path, model):
     image = Image.open(image_path).convert("RGB")
@@ -61,13 +56,14 @@ def predict(image_path, model):
         predicted_class_probability = probabilities[0, predicted_class_idx].item()
     return predicted_class_idx, predicted_class_name, predicted_class_probability, probabilities[0]
 
+
 # Fan art image paths and assumed labels (-1 for unknown)
-fan_art_paths = ["OdaFanart/of1", "OdaFanart/of2", "fanart3.jpg"]
-fan_art_true_labels = [-1, -1, -1]  # Using -1 for unknown labels
+fan_art_paths = ["OdaFanart/of1.jpeg", "OdaFanart/of2.jpeg", "OdaFanart/of3.jpeg", "OdaFanart/of4.jpeg", "OdaFanart/of5.jpeg", "OdaFanart/of6.jpeg", "OdaFanart/of7.jpeg", "OdaFanart/of8.jpeg", "OdaFanart/of9.jpeg", "OdaFanart/of10.jpeg"]
+fan_art_true_labels = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]  # Using -1 for unknown labels
 
 # Real art image paths and correct labels (example indices)
-real_art_paths = ["real1.jpg", "real2.jpg", "real3.jpg"]
-real_art_true_labels = [2, 2, 2]  # Assuming these are all from Eiichiro Oda (index 2)
+real_art_paths = ["OdaReal/or1.jpg", "OdaReal/or2.jpg", "OdaReal/or3.jpg", "OdaReal/or4.jpg", "OdaReal/or5.jpg", "OdaReal/or6.jpg", "OdaReal/or7.jpg", "OdaReal/or8.jpg", "OdaReal/or9.jpg", "OdaReal/or10.jpg"]
+real_art_true_labels = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]  # Assuming these are all from Eiichiro Oda (index 2)
 
 # Combine fan art and real art paths and labels
 all_image_paths = fan_art_paths + real_art_paths
@@ -121,4 +117,3 @@ plt.show()
 print("\nConfidence Scores for Fan Art:")
 for i in fan_art_indices:
     print(f"{all_image_paths[i]}: {all_confidences[i] * 100:.2f}% confident in {class_labels[all_predictions[i]]}")
-
