@@ -60,7 +60,7 @@ if __name__ == '__main__':
         "BoichiFanart/bf7.jpg", "BoichiFanart/bf8.jpg", "BoichiFanart/bf9.jpg",
         "BoichiFanart/bf10.jpg"
     ]
-    fan_art_true_labels = [-1] * 10  # Using -1 for unknown labels
+    fan_art_true_labels = [-1] * 10
 
     # Real art image paths and correct labels
     real_art_paths = [

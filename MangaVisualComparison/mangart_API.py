@@ -52,13 +52,12 @@ transform = transforms.Compose([
 
 
 @app.route('/')
-def index():
-    """Serve the frontend."""
+def index(): # Serve the frontend.
     return render_template('index.html')
 
 
+# Perform inference and return predictions.
 def predict(model, input_tensor):
-    """Perform inference and return predictions."""
     with torch.no_grad():
         outputs = model(input_tensor)
         logits = outputs.logits if hasattr(outputs, 'logits') else outputs
@@ -100,4 +99,4 @@ def preprocess_image(image):
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

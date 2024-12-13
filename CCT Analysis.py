@@ -66,7 +66,7 @@ fan_art_paths = [
 ]
 fan_art_true_labels = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]  # Using -1 for unknown labels
 
-# Real art image paths and correct labels (example indices)
+# Real art image paths and correct labels
 real_art_paths = [
     "BoichiReal/br1.jpg", "BoichiReal/br2.jpg", "BoichiReal/br3.jpg",
     "BoichiReal/br4.jpg", "BoichiReal/br5.jpg", "BoichiReal/br6.jpg",
